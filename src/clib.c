@@ -4,32 +4,80 @@
 #include "clib.h"
 
 int strlen(char s[]) {
-	__clib__i = 0;
-	while(s[__clib__i] != '\0')
-		++__clib__i;
-	return __clib__i;
+	#define i __clib__i
+
+	i = 0;
+	while(s[i] != '\0')
+		++i;
+	return i;
+
+	#undef i
 }
 
 void reverse(char s[]) {
-	int __clib__i, __clib__j;
+	//For some reason I don't ahve the patience to investigate, var reuse makes it not work.
+	int i, j;
 	char c;
 
-	for(__clib__i = 0, __clib__j = strlen(s) - 1; __clib__i < __clib__j; __clib__i++, __clib__j--) {
-		c = s[__clib__i];
-		s[__clib__i] = s[__clib__j];
-		s[__clib__j] = c;
+	for(i = 0, j = strlen(s) - 1; i < j; i++, j--) {
+		c = s[i];
+		s[i] = s[j];
+		s[j] = c;
 	}
 }
 
-char* itoa(unsigned int n, char s[]) {
-    __clib__i = 0;
+char* itoa(int s_n, char s[]) {
+	#define i __clib__i
+	#define n __clib__j
+
+	if(s_n < 0)
+		n = -s_n;
+	else
+		n = s_n;
+
+    i = 0;
+
 	do {
-		s[__clib__i++] = n % 10 + '0';
-	} while((n /=10) > 0);
-	s[__clib__i] = '\0';
+		s[i++] = n % 10 + '0';
+	} while((n /= 10) > 0);
+
+	if(s_n < 0)
+		s[i++] = '-';
+	s[i] = '\0';
+
 	reverse(s);
 
 	return s;
+
+	#undef i
+	#undef n
+}
+
+//http://stackoverflow.com/questions/12791077/atoi-implementation-in-c
+int atoi(char *p) {
+	#define k __clib__returnval
+
+	k = 0;
+	__clib__j = 0;
+
+	if(*p == '-' || *p == '+') {
+		if(*p == '-') {
+			__clib__j = 1;
+		}
+		else {
+			__clib__j = 0;
+		}
+		p++;
+	}
+
+	while(*p) {
+		k = (k << 3) + (k << 1) + (*p) - '0';
+		p++;
+	}
+
+	return (__clib__j ? -k : k);
+
+	#undef k
 }
 
 #endif

@@ -3,12 +3,15 @@
 
 int __clib__i;
 int __clib__j;
+int __clib__returnval;
+char __clib__c;
 
 int strlen(char[]);
 
 void reverse(char[]);
 
 int __clib__itoa_sign;
-char* itoa(unsigned int, char[]);
+char* itoa(int, char[]);
+int atoi(char*);
 
 #endif

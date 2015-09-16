@@ -11,10 +11,13 @@ void clearscreen() {
 void resetcursor() {
 	//bcall(_homeup);
 	__cio__current_line = 0;
+	setPenRow(0);
+	setPenCol(0);
 }
 
 void newline() {
 	__cio__current_line += 6;
+	setPenCol(0);
 }
 
 void setPenCol(char col) {
@@ -44,7 +47,7 @@ void vputs(char* s) {
 
 void print(char* s) {
 	setPenRow(__cio__current_line);
-	setPenCol(0);
+	//setPenCol(0);
 	vputs(s);
 }
 
@@ -57,6 +60,31 @@ int getKey() {
 	bcall(_getkey);
 	assignAToVar(&__cio__returnValue);
 	return __cio__returnValue;
+}
+
+int getInt() {
+	#define i __cio__i
+	#define key __cio__j
+	#define buffer __cio__buffer
+
+	i = 0;
+	do {
+		key = getKey();
+		if(key >= DIGIT_0 && key <= DIGIT_0 + 9) {
+			buffer[i++] = key - DIGIT_0 + '0';
+		} else if((key == 140 || key == 129) && i == 0) {
+			buffer[i++] = '-';
+		}
+	} while(key != 5);
+	buffer[i] = '\0';
+
+	i = atoi(buffer);
+
+	return i;
+
+	#undef i
+	#undef key
+	#undef buffer
 }
 
 #endif
