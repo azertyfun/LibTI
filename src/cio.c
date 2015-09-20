@@ -45,6 +45,20 @@ void vputs(char* s) {
 	bcall(_vputs);
 }
 
+void vputc(char c) {
+	c;
+	__asm
+		//ld a, 4(ix)
+		ld a, 4(ix)
+	__endasm;
+	bcall(_vputmap);
+}
+
+void printc(char c) {
+	setPenRow(__cio__current_line);
+	vputc(c);
+}
+
 void print(char* s) {
 	setPenRow(__cio__current_line);
 	//setPenCol(0);
@@ -72,11 +86,15 @@ int getInt() {
 		key = getKey();
 		if(key >= DIGIT_0 && key <= DIGIT_0 + 9) {
 			buffer[i++] = key - DIGIT_0 + '0';
+			printc(buffer[i - 1]);
 		} else if((key == 140 || key == 129) && i == 0) {
 			buffer[i++] = '-';
+			printc('-');
 		}
 	} while(key != 5);
 	buffer[i] = '\0';
+
+	newline();
 
 	i = atoi(buffer);
 
