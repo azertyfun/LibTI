@@ -14,6 +14,24 @@ int strlen(char s[]) {
 	#undef i
 }
 
+void strcpy(char* dest, char* source) {
+	int i = 0; //In this kind of function we want to avoid var reuse collision
+	while(1) {
+		dest[i] = source[i];
+		if(dest[i] == '\0')
+			break;
+		++i;
+	}
+}
+
+void strcpyl(char* dest, char* source, int length) {
+	int i = 0; //In this kind of function we want to avoid var reuse collision
+	for(i = 0; i < length; ++i) {
+		dest[i] = source[i];
+	}
+	dest[i] = '\0';
+}
+
 void reverse(char s[]) {
 	//For some reason I don't ahve the patience to investigate, var reuse makes it not work.
 	int i, j;

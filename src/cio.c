@@ -70,6 +70,25 @@ void println(char* s) {
 	newline();
 }
 
+//This function only supports \n, no fancy variable integration or whatever.
+void printf(char* s) {
+	#define i __cio__i
+	#define length __cio__j
+
+	length = strlen(s);
+	for(i = 0; i < length; ++i) {
+		if(*(s + i) == '\n') {
+			newline();
+			setPenRow(__cio__current_line);
+		}
+		else
+			printc(*(s + i));
+	}
+
+	#undef i
+	#undef length
+}
+
 int getKey() {
 	bcall(_getkey);
 	assignAToVar(&__cio__returnValue);
