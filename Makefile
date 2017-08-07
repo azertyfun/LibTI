@@ -1,5 +1,5 @@
 test: test.ihx
-	hex2bin -e bin test.ihx
+	objcopy -Iihex -Obinary test.ihx test.bin
 	python binpac8x.py test.bin
 	packihx test.ihx > test.hex
 
