@@ -1,5 +1,5 @@
 helloworld: helloworld.ihx
-	hex2bin -e bin helloworld.ihx
+	objcopy -Iihex -Obinary helloworld.ihx helloworld.bin
 	python binpac8x.py helloworld.bin
 	#packihx helloworld.ihx > helloworld.hex
 
