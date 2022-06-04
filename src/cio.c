@@ -39,7 +39,7 @@ void setPenRow(char row) {
 void vputs(char* s) {
 	s;
 	__asm
-		ld a, 4(ix)
+		ld l, 4(ix)
 		ld h, 5(ix)
 	__endasm;
 	bcall(_vputs);
