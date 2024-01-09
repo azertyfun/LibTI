@@ -1,3 +1,7 @@
+**IMPORTANT**: Though I still accept PRs, the project hasn't been in active development since I left school (the TI-84 now lives in my basement workshop where the most complex mathematical task it achieves is SOH-CAH-TOA).
+
+You probably want to check out [the much cleaner, easier, and production-ready reference TI-84 app from ckormanyos](https://github.com/ckormanyos/ti84-ref_app) instead.
+
 LibTI
 =====
 
